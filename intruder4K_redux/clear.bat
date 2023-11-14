@@ -1,0 +1,9 @@
+del *.lst
+del *.sdb
+del *.obj
+del *.bak
+del *.sym
+cd MSX-O-Mizer
+del *.lst
+del *.sym
+del *.miz
