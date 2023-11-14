@@ -58,7 +58,7 @@ This isn't a concern with homebrew programs which start with the stack pointer s
 
 ## MSX Interrupt Handler
 
-Another feature of the of the MSX BIOS is that it handles the video interrupts. You can provide the BIOS a function pointer to it to run your own code at interrupt time, which is how Deep Dungeon Adventure does music updates.  The MSX interrupt handler saves and restores the _full_ CPU register state via the stack, freeing MSX programmers from having to worry about register use in the their interrupt functions.  I was frustrated by random seeming bugs in my port until I realized that the music updates were changing register states that weren't being managed by the interrupt handler I wrote for the Nabu.  CBIOS, an open source MSX BIOS implementation, starts it's interrupt handler with the following:
+Another feature of the of the MSX BIOS is that it handles the video interrupts. You can provide the BIOS a function pointer to it to run your own code at interrupt time, which is how Deep Dungeon Adventure does music updates.  The MSX interrupt handler saves and restores the _full_ CPU register state via the stack, freeing MSX programmers from having to worry about register use in the their interrupt functions.  I was frustrated by random seeming bugs in my port until I realized that the music updates were changing register states that weren't being managed by the interrupt handler I wrote for the Nabu.  C-BIOS, an open source MSX BIOS implementation, starts its interrupt handler with the following:
 ```
 	push    hl
 	push    de
