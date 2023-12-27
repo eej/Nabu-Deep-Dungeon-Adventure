@@ -46,7 +46,7 @@ The MSX BIOS has a library of functions for interfacing with the hardware.  Thes
 
 ## Register 7 on the AY-3
 
-The MSX and Nabu both use the AY-3-8910 which, in addition to its sound capabilities, provides two general purpose I/O ports.  Bit's 7 and 6 of Register 7 of the AY-3 control whether each of the ports are configured for reading or writing.  Unfortunately these bits must be set to `01` on the Nabu and `10` on the MSX.  Bits 0 through 5 of register 7 are the mixer bits, used to enable or disable the tone and noise generators for each of the 3 audio channels.  Which means that audio playback code written for the MSX will likely need to be modified to ensure the high bits of register 7 are always set correctly for the Nabu.
+The MSX and Nabu both use the AY-3-8910 which, in addition to its sound capabilities, provides two general purpose I/O ports.  Bit's 7 and 6 of Register 7 of the AY-3 control whether each of the ports are configured for reading or writing.  Unfortunately these bits must be set to `01` on the Nabu and `10` on the MSX.  I have read sepeculation that running a MSX or Nabu with the wrong port settings could potentially be damaging, making this difference particularly unfortunate. Bits 0 through 5 of register 7 are the mixer bits, used to enable or disable the tone and noise generators for each of the 3 audio channels.  Which means that audio playback code written for the MSX will likely need to be modified to ensure the high bits of register 7 are always set correctly for the Nabu.
 
 ## RAM challenges
 
@@ -79,6 +79,11 @@ Another feature of the of the MSX BIOS is that it handles the video interrupts. 
 This doesn't have anything to do with the Nabu or MSX, but instead is important if you are converting a codebase to assemble with SJASMPlus.  Use SJASM with the `--syntax=a` setting.
 
 `sub 4` is a standard z80 instruction that subtracts 4 from register a.  `sub a, 4` is improper syntax, there is no version of the sub instruction that takes two parameters, register a is always implicit.  Many z80 assemblers accept this non-standard syntax as another way to write `sub 4`.  SJASM on the other hand has a "multi-argument" syntax feature where it interprets `sub a, 4` as a comma separated list of values that you want to subtract.  So in this example it produces two instructions: `sub a; sub 4`.  This is a bit of a trap generally, and particularly annoying when you're converting a codebase between assemblers.  The `--syntax=a` parameter tels SJASM to use `,,` as its list delimiter for the multi-argument feature making it harder to trigger by accident.
+
+## Video
+
+I have also made a short video about this port:
+https://www.youtube.com/watch?v=jp8c-x8cqtA
 
 # Thanks
 
